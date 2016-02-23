@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+import logging
 import tornado.web
 import tornado.ioloop
 from views import ScreenHandler, KeyboardHandler
+
+logger = logging.getLogger()
 
 
 class Robot(object):
@@ -33,7 +36,7 @@ class Robot(object):
         )
 
         # Start tornado
-        print("Starting tornado on port %s..." % self.port)
+        logger.debug("Starting tornado on port %s..." % self.port)
         app.listen(self.port, address='')
         tornado.ioloop.IOLoop.current().start()
 
@@ -43,4 +46,4 @@ class Robot(object):
         """
         ioloop = tornado.ioloop.IOLoop.instance()
         ioloop.add_callback(ioloop.stop)
-        print("Exiting tornado...")
+        logger.debug("Exiting tornado...")

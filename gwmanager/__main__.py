@@ -2,6 +2,10 @@
 import sys
 import getopt
 from robot import Robot
+from config import load_config
+
+
+load_config()
 
 
 if __name__ == "__main__":

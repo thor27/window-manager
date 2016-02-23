@@ -16,7 +16,7 @@ def load_config():
     """
     config = configparser.ConfigParser()
     here = os.path.abspath(os.path.dirname(__file__))
-    config_file = os.path.join(here, '../../' + environment + '.ini')
+    config_file = os.path.join(here, '../' + environment + '.ini')
     config.read(config_file)
 
     # Logging
