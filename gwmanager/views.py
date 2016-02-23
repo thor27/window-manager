@@ -3,7 +3,11 @@ import tornado.web
 import json
 import logging
 import threading
+import subprocess
+import sys
+import os.path
 from screen import Screen
+from keyboard import Keyboard
 
 logger = logging.getLogger()
 
@@ -123,6 +127,8 @@ class KeyboardHandler(JsonHandler):
         """
         Prepare incoming request for handler
         """
+        self.keyboard = Keyboard()
+        logger.debug("MASTER - Request\n%s", self.request.body)
         super(KeyboardHandler, self).prepare()
 
     @tornado.web.asynchronous
@@ -130,6 +136,7 @@ class KeyboardHandler(JsonHandler):
         # 1 - Find operation
         try:
             operation = self.json_data['operation']
+            name = self.json_data['name']
         except Exception as e:
             logger.debug("MASTER VIEW - Error\n%s", e)
             self.write_error(500, message=e)
@@ -137,19 +144,14 @@ class KeyboardHandler(JsonHandler):
 
         # 2 - Execute operation
         method = getattr(self, operation)
-        result = method()
+        result = method(name)
 
-        # Just return JSON
-        self.response = {}
-        self.write_json()
-        self.finish()
-
-    def lock(self):
+    def lock(self, name):
         """
         Lock keyboard
         """
+        self.keyboard.lock(name)
 
-    def unlock(self):
-        """
-        Unlock Keyboard
-        """
+        self.response = {}
+        self.write_json()
+        self.finish()

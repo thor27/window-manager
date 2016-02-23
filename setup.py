@@ -21,4 +21,5 @@ setup(
     author_email='eduardo@eduardosan.com',
     description='Manage Gnome Windows',
     install_requires=requires,
+    scripts=['bin/autonumlock'],
 )
