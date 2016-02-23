@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from setuptools import setup, find_packages
 
@@ -10,7 +11,7 @@ requires = [
 ]
 
 setup(
-    name='window-manager',
+    name='gwmanager',
     version=VERSION,
     packages=find_packages(),
     include_package_data=True,
