@@ -2,7 +2,7 @@
 import logging
 import tornado.web
 import tornado.ioloop
-from views import ScreenHandler, KeyboardHandler
+from views import ScreenHandler, KeyboardHandler, MirrorHandler
 
 logger = logging.getLogger()
 
@@ -31,6 +31,7 @@ class Robot(object):
             [
                 (r"/screen", ScreenHandler),
                 (r"/keyboard", KeyboardHandler),
+                (r"/mirror", MirrorHandler),
             ],
             **settings
         )

@@ -8,6 +8,7 @@ import sys
 import os.path
 from screen import Screen
 from keyboard import Keyboard
+from mirror import Mirror
 
 logger = logging.getLogger()
 
@@ -151,6 +152,45 @@ class KeyboardHandler(JsonHandler):
         Lock keyboard
         """
         self.keyboard.lock(name)
+
+        self.response = {}
+        self.write_json()
+        self.finish()
+
+
+class MirrorHandler(JsonHandler):
+    """
+    Handle requests
+    """
+    def prepare(self):
+        """
+        Prepare incoming request for handler
+        """
+        self.mirror = Mirror()
+        logger.debug("MASTER - Request\n%s", self.request.body)
+        super(MirrorHandler, self).prepare()
+
+    @tornado.web.asynchronous
+    def post(self, *args, **kwargs):
+        # 1 - Find operation
+        try:
+            operation = self.json_data['operation']
+            origin = self.json_data['origin']
+            mirror_name = self.json_data['mirror_name']
+        except Exception as e:
+            logger.debug("MASTER VIEW - Error\n%s", e)
+            self.write_error(500, message=e)
+            self.finish()
+
+        # 2 - Execute operation
+        method = getattr(self, operation)
+        result = method(origin, mirror_name)
+
+    def copy(self, origin, mirror_name):
+        """
+        Lock keyboard
+        """
+        self.mirror.copy(origin, mirror_name)
 
         self.response = {}
         self.write_json()
