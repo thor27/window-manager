@@ -34,6 +34,7 @@ class Mirror(object):
         mirror_path = os.path.join(usb_disks[0][1], filename)
 
         # Sempre substitui a versão antiga
+        log.debug("MIRROR - Copying file %s to path %s", origin, mirror_path)
         shutil.copyfile(origin, mirror_path)
 
         log.debug("MIRROR - File %s copied to %s", origin, mirror_path)
