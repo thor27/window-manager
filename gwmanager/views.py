@@ -73,6 +73,7 @@ class ScreenHandler(JsonHandler):
         """
         Prepare incoming request for handler
         """
+        logger.debug("MASTER - Request\n%s", self.request.body)
         self.lock = False
         self.screen = Screen()
         super(ScreenHandler, self).prepare()
