@@ -73,7 +73,7 @@ class ScreenHandler(JsonHandler):
         """
         Prepare incoming request for handler
         """
-        logger.debug("MASTER - Request\n%s", self.request.body)
+        logger.debug("SCREEN - Request\n%s", self.request.body)
         self.lock = False
         self.screen = Screen()
         super(ScreenHandler, self).prepare()
@@ -85,7 +85,7 @@ class ScreenHandler(JsonHandler):
             operation = self.json_data['operation']
             name = self.json_data['name']
         except Exception as e:
-            logger.debug("MASTER VIEW - Error\n%s", e)
+            logger.debug("SCREEN VIEW - Error\n%s", e)
             self.write_error(500, message=e)
             self.finish()
 
@@ -130,7 +130,7 @@ class KeyboardHandler(JsonHandler):
         Prepare incoming request for handler
         """
         self.keyboard = Keyboard()
-        logger.debug("MASTER - Request\n%s", self.request.body)
+        logger.debug("KEYBOARD - Request\n%s", self.request.body)
         super(KeyboardHandler, self).prepare()
 
     @tornado.web.asynchronous
@@ -140,7 +140,7 @@ class KeyboardHandler(JsonHandler):
             operation = self.json_data['operation']
             name = self.json_data['name']
         except Exception as e:
-            logger.debug("MASTER VIEW - Error\n%s", e)
+            logger.debug("KEYBOARD VIEW - Error\n%s", e)
             self.write_error(500, message=e)
             self.finish()
 
@@ -168,7 +168,7 @@ class MirrorHandler(JsonHandler):
         Prepare incoming request for handler
         """
         self.mirror = Mirror()
-        logger.debug("MASTER - Request\n%s", self.request.body)
+        logger.debug("MIRROR - Request\n%s", self.request.body)
         super(MirrorHandler, self).prepare()
 
     @tornado.web.asynchronous
@@ -179,7 +179,7 @@ class MirrorHandler(JsonHandler):
             origin = self.json_data['origin']
             mirror_name = self.json_data['mirror_name']
         except Exception as e:
-            logger.debug("MASTER VIEW - Error\n%s", e)
+            logger.debug("MIRROR VIEW - Error\n%s", e)
             self.write_error(500, message=e)
             self.finish()
 
