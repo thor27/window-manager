@@ -196,3 +196,13 @@ class MirrorHandler(JsonHandler):
         self.response = {}
         self.write_json()
         self.finish()
+
+    def restore(self, origin, mirror_name):
+        """
+        Lock keyboard
+        """
+        self.mirror.restore(origin, mirror_name)
+
+        self.response = {}
+        self.write_json()
+        self.finish()
