@@ -187,11 +187,11 @@ class MirrorHandler(JsonHandler):
         method = getattr(self, operation)
         result = method(origin, mirror_name)
 
-    def copy(self, origin, mirror_name):
+    def cp(self, origin, mirror_name):
         """
         Lock keyboard
         """
-        self.mirror.copy(origin, mirror_name)
+        self.mirror.cp(origin, mirror_name)
 
         self.response = {}
         self.write_json()

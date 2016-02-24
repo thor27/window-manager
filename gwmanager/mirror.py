@@ -17,7 +17,7 @@ class Mirror(object):
         Método construtor
         """
 
-    def copy(self, origin, filename):
+    def cp(self, origin, filename):
         """
         Copy from origin to mirror
 
@@ -25,6 +25,7 @@ class Mirror(object):
         :param filename: Mirror file name
         :return:
         """
+        log.debug("MIRROR - Executing origin = %s filename = %s", origin, filename)
         usb_disks = utils.get_mount_points()
         if len(usb_disks) == 0:
             log.debug("MIRROR - No disk partitions found!")
