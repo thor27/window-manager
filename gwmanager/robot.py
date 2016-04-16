@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import os
 import logging
 import tornado.web
 import tornado.ioloop
-from views import ScreenHandler, KeyboardHandler, MirrorHandler
+from views import ScreenHandler, KeyboardHandler, MirrorHandler, IndexHandler
+import broadcaster
 
 logger = logging.getLogger()
 
@@ -26,16 +28,17 @@ class Robot(object):
             "debug": True,
             "xsrf_cookies": False,
         }
-
+        static_path = os.path.join(os.path.dirname(__file__), '../static')
         app = tornado.web.Application(
             [
+                (r"/", IndexHandler),
                 (r"/screen", ScreenHandler),
                 (r"/keyboard", KeyboardHandler),
                 (r"/mirror", MirrorHandler),
-            ],
+                (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': static_path}),
+            ] + broadcaster.urls,
             **settings
         )
-
         # Start tornado
         logger.debug("Starting tornado on port %s..." % self.port)
         app.listen(self.port, address='')

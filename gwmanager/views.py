@@ -13,6 +13,12 @@ from mirror import Mirror
 logger = logging.getLogger()
 
 
+class IndexHandler(tornado.web.RequestHandler):
+    """Regular HTTP handler to serve keyboard tool testground"""
+    def get(self):
+        self.render('index.html')
+
+
 class JsonHandler(tornado.web.RequestHandler):
     """
     Request handler where requests and responses speak JSON.
